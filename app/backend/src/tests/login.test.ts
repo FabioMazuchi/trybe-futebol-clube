@@ -5,6 +5,7 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import User from '../database/models/usersModel';
 import { Response } from 'superagent';
+import * as jwt from 'jsonwebtoken';
 
 chai.use(chaiHttp);
 
@@ -16,18 +17,19 @@ describe('POST /login SUCESSO', () => {
     username: "User #4",
     password: "secret" 
   }
-  type token = 'fake_token';
 
-  const fakeToken: token = 'fake_token';
+  const fakeToken: unknown = 'fake_token';
 
   let chaiHttpResponse: Response;
 
   before(async () => {
     sinon.stub(User, 'findOne').resolves(fakeUser as User);
+    sinon.stub(jwt, 'sign').returns(fakeToken as void)
   });
 
   after(()=>{
     (User.findOne as sinon.SinonStub).restore();
+    (jwt.sign as sinon.SinonStub).restore();
   })
 
   it('a requisição seja respondida com status 200 e com token de autenticação', async () => {
@@ -37,5 +39,6 @@ describe('POST /login SUCESSO', () => {
     })
 
     expect(chaiHttpResponse).to.have.status(200);
+    expect(chaiHttpResponse.body).to.be.deep.equal({ token: fakeToken })
   });
 });
