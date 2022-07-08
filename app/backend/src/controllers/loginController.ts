@@ -6,13 +6,10 @@ export default class LoginController {
     this.service = service;
   }
 
-  async login(req: Request, res: Response, next: NextFunction) {
-    try {
-      const token = this.service.login(req.body);
+  async login(req: Request, res: Response, _next: NextFunction) {
+    const result = await this.service.login(req.body);
+    if (result.status === 200) return res.status(result.status).json({ token: result.token });
 
-      return res.status(200).json({ token });
-    } catch (error) {
-      next(error);
-    }
+    return res.status(result.status).json({ message: result.message });
   }
 }

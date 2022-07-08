@@ -8,10 +8,12 @@ export interface User {
 
 export interface IUserModel {
   getById(id: number): Promise<Omit<User, 'id' | 'username' | 'role'>>;
+  getByEmail(email: string): Promise<User>
+  getByPassword(password: string): Promise<User>;
 }
 
 export interface IUserService {
-  getById(id: number): Promise<Omit<User, 'id' | 'username' | 'role'>>;
+  getById(id: number): Omit<User, 'id' | 'username' | 'role'>;
 }
 
 export interface ILoginModel {
@@ -19,9 +21,21 @@ export interface ILoginModel {
 }
 
 export interface ILoginService {
-  login(data: User): string;
+  login(data: User): Promise<MyResult>;
 }
 
 export interface ITokenGenerator<T> {
   generate(data: T): string
 }
+
+export interface IValidatorLogin {
+  validEmail(): boolean
+  validPassword(): boolean
+  valid(): boolean
+}
+
+export type MyResult = {
+  status: number,
+  message?: string,
+  token?: string,
+};
