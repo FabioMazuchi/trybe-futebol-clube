@@ -25,7 +25,7 @@ export interface ILoginService {
 }
 
 export interface ILoginValidateService {
-  login(authorization: string | undefined): Promise<string | undefined>;
+  login(token: string | undefined): Promise<string | undefined>;
 }
 
 export interface ITokenGenerator<T> {
@@ -42,4 +42,10 @@ export type MyResult = {
   status: number,
   message?: string,
   token?: string,
+};
+
+export type myDecoded = {
+  email: string,
+  password: string,
+  iat: number,
 };

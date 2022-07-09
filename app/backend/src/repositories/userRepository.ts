@@ -13,7 +13,15 @@ export default class UserRepository implements IUserModel {
   }
 
   async getByEmail(email: string): Promise<User> {
-    const user = await this.model.findOne({ where: { email } });
+    const data = await this.model.findOne({ where: { email } });
+    const user = {
+      id: data?.id,
+      username: data?.username,
+      role: data?.role,
+      email: data?.email,
+      password: data?.password,
+    };
+    console.log(data?.username);
 
     return user as User;
   }
