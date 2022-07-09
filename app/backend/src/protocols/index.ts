@@ -24,6 +24,10 @@ export interface ILoginService {
   login(data: User): Promise<MyResult>;
 }
 
+export interface ILoginValidateService {
+  login(authorization: string | undefined): Promise<string | undefined>;
+}
+
 export interface ITokenGenerator<T> {
   generate(data: T): string
 }

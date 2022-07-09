@@ -15,7 +15,6 @@ export default class LoginService implements ILoginService {
 
     const userEmail = await this.model.getByEmail(email);
     const userPass = await this.model.getByPassword(password);
-    console.log(userEmail, userPass);
 
     if (userEmail !== null || userPass !== null) {
       const token = generateToken(data);

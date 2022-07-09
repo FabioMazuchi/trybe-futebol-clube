@@ -42,3 +42,75 @@ describe('POST /login SUCESSO', () => {
     expect(chaiHttpResponse.body).to.be.deep.equal({ token: fakeToken })
   });
 });
+
+describe('POST / login ERRO', () => {
+  describe('Teste campos vazio', () => {
+    const fakeUser = {
+      id: 4,
+      username: "User #4",
+      password: "secret" 
+    }
+  
+    let chaiHttpResponse: Response;
+  
+    before(async () => {
+      sinon.stub(User, 'findOne').resolves(fakeUser as User);
+    });
+  
+    after(()=>{
+      (User.findOne as sinon.SinonStub).restore();
+    })
+  
+    it('se o login não tiver o campo "email" deve ser retornado um status 400 e a mensagem "All fields must be filled"', async () => {
+      chaiHttpResponse = await chai.request(app).post('/login').send({
+        email: "",
+        password: "secret"
+      })
+  
+      expect(chaiHttpResponse).to.have.status(400);
+      expect(chaiHttpResponse.body).to.be.deep.equal({ message: 'All fields must be filled' });
+    });
+  
+    it('se o login não tiver o campo "password" deve ser retornado um status 400 e a mensagem "All fields must be filled"', async () => {
+      chaiHttpResponse = await chai.request(app).post('/login').send({
+        email: "email@email.com",
+        password: ""
+      })
+  
+      expect(chaiHttpResponse).to.have.status(400);
+      expect(chaiHttpResponse.body).to.be.deep.equal({ message: 'All fields must be filled' });
+    });
+  });
+
+  describe('Teste campos incorretos', () => {
+    let chaiHttpResponse: Response;
+  
+    before(async () => {
+      sinon.stub(User, 'findOne').resolves(null);
+    });
+  
+    after(()=>{
+      (User.findOne as sinon.SinonStub).restore();
+    });
+
+    it('se o campo "email" for incorreto retorna um status 401 e a mensagem "Incorrect email or password"', async () => {
+      chaiHttpResponse = await chai.request(app).post('/login').send({
+        email: "email@email.com",
+        password: "secret"
+      })
+  
+      expect(chaiHttpResponse).to.have.status(401);
+      expect(chaiHttpResponse.body).to.be.deep.equal({ message: 'Incorrect email or password' });
+    });
+
+      it('se o campo "password" for incorreto retorna um status 401 e a mensagem "Incorrect email or password"', async () => {
+      chaiHttpResponse = await chai.request(app).post('/login').send({
+        email: "email@email.com",
+        password: "secret"
+      })
+  
+      expect(chaiHttpResponse).to.have.status(401);
+      expect(chaiHttpResponse.body).to.be.deep.equal({ message: 'Incorrect email or password' });
+    });
+  })
+});
