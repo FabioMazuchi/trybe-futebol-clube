@@ -21,13 +21,19 @@ export default class UserRepository implements IUserModel {
       email: data?.email,
       password: data?.password,
     };
-    console.log(data?.username);
 
     return user as User;
   }
 
   async getByPassword(password: string): Promise<User> {
-    const user = await this.model.findOne({ where: { password } });
+    const data = await this.model.findOne({ where: { password } });
+    const user = {
+      id: data?.id,
+      username: data?.username,
+      role: data?.role,
+      email: data?.email,
+      password: data?.password,
+    };
 
     return user as User;
   }

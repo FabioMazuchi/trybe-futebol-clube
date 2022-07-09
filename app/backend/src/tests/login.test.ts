@@ -95,7 +95,7 @@ describe('POST / login ERRO', () => {
 
     it('se o campo "email" for incorreto retorna um status 401 e a mensagem "Incorrect email or password"', async () => {
       chaiHttpResponse = await chai.request(app).post('/login').send({
-        email: "email@email.com",
+        email: "email@email",
         password: "secret"
       })
   
@@ -106,7 +106,7 @@ describe('POST / login ERRO', () => {
       it('se o campo "password" for incorreto retorna um status 401 e a mensagem "Incorrect email or password"', async () => {
       chaiHttpResponse = await chai.request(app).post('/login').send({
         email: "email@email.com",
-        password: "secret"
+        password: "12345"
       })
   
       expect(chaiHttpResponse).to.have.status(401);
