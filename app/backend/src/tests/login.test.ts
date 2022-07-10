@@ -14,7 +14,7 @@ const { expect } = chai;
 describe('POST /login SUCESSO', () => {
   const fakeUser = {
     id: 4,
-    username: "User #4",
+    email: "email@email.com",
     password: "secret" 
   }
 
@@ -44,10 +44,9 @@ describe('POST /login SUCESSO', () => {
 });
 
 describe('POST / login ERRO', () => {
-  describe('Teste campos vazio', () => {
+  describe('Teste campos vazio ou inválidos', () => {
     const fakeUser = {
-      id: 4,
-      username: "User #4",
+      email: "teste@email.com",
       password: "secret" 
     }
   
@@ -114,3 +113,4 @@ describe('POST / login ERRO', () => {
     });
   })
 });
+
