@@ -49,3 +49,16 @@ export type myDecoded = {
   password: string,
   iat: number,
 };
+
+export interface Team {
+  id: number;
+  team_name: string;
+}
+
+export interface ITeamsModel {
+  list(): Promise<Team[]>;
+}
+
+export interface ITeamsService {
+  list(): Promise<Team[]>;
+}

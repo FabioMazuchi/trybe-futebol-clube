@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      teamName: { type: Sequelize.STRING },
+      team_name: { type: Sequelize.STRING },
     });
   },
   down: async (queryInterface) => {

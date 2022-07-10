@@ -37,15 +37,7 @@
     ],
     "implicit-arrow-linebreak": "off",
     "consistent-return": "off",
-    "@typescript-eslint/naming-convention": [
-      "error", { 
-        "selector": "property",
-        "format": ["strictCamelCase"],
-        "filter": {
-        "regex": "^_",
-        "match": false
-      } }
-    ],
+    "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {

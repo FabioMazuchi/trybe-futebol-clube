@@ -1,8 +1,6 @@
-// import ValidLoginBody from '../middlewares/validLoginBody';
 import { ILoginService, IUserModel, MyResult, User } from '../protocols/index';
 import generateToken from '../helper/TokenGenerator';
 import ValidLoginBody from '../helper/validLoginBody';
-// import bcryptHashGenerator from '../helper/bcryptHashGenerator';
 
 export default class LoginService implements ILoginService {
   constructor(private model: IUserModel) {
@@ -19,7 +17,6 @@ export default class LoginService implements ILoginService {
     const result = new ValidLoginBody(email, password).valid();
     if (!result) return erro1;
 
-    // const hash = bcryptHashGenerator(password);
     const userEmail = await this.model.getByEmail(email);
     console.log(userEmail);
 
