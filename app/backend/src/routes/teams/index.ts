@@ -7,4 +7,8 @@ router.get('/', (req, res, next) => {
   teamsFactory().list(req, res, next);
 });
 
+router.get('/:id', (req, res, next) => {
+  teamsFactory().getById(req, res, next);
+});
+
 export default router;

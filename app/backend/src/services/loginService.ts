@@ -18,7 +18,6 @@ export default class LoginService implements ILoginService {
     if (!result) return erro1;
 
     const userEmail = await this.model.getByEmail(email);
-    console.log(userEmail);
 
     if (userEmail.email === undefined) return erro1;
 

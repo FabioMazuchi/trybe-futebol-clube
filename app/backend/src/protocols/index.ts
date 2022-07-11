@@ -57,8 +57,10 @@ export interface Team {
 
 export interface ITeamsModel {
   list(): Promise<Team[]>;
+  getById(id: number): Promise<Team>;
 }
 
 export interface ITeamsService {
-  list(): Promise<Team[]>;
+  list(): Promise<Team[] | null>;
+  getById(id: number): Promise<Team | null>;
 }

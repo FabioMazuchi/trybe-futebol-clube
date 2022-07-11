@@ -33,5 +33,3 @@ describe('GET /teams SUCESSO', () => {
 });
 
 
-
-
