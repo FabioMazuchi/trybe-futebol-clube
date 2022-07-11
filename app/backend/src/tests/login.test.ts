@@ -43,7 +43,7 @@ describe('POST /login SUCESSO', () => {
   });
 });
 
-describe('POST / login ERRO', () => {
+describe('POST /login ERRO', () => {
   describe('Teste campos vazio ou inválidos', () => {
     const fakeUser = {
       email: "teste@email.com",
