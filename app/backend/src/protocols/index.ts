@@ -52,7 +52,7 @@ export type myDecoded = {
 
 export interface Team {
   id: number;
-  team_name: string;
+  teamName: string;
 }
 
 export interface ITeamsModel {
@@ -63,4 +63,21 @@ export interface ITeamsModel {
 export interface ITeamsService {
   list(): Promise<Team[] | null>;
   getById(id: number): Promise<Team | null>;
+}
+
+export interface Match {
+  id: number;
+  homeTeam: number;
+  homeTeamGoals: number;
+  awayTeam: number;
+  awayTeamGoals: number;
+  inProgress: boolean;
+}
+
+export interface IMatchesModel {
+  list(): Promise<Match[]>;
+}
+
+export interface IMatchesService {
+  list(): Promise<Match[]>;
 }

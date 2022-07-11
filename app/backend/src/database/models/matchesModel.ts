@@ -4,11 +4,11 @@ import Teams from './teamsModel';
 
 class Matches extends Model {
   id!: number;
-  home_team!: number;
-  home_team_goals!: number;
-  away_team!: number;
-  away_team_goals!: number;
-  in_progress!: boolean;
+  homeTeam!: number;
+  homeTeamGoals!: number;
+  awayTeam!: number;
+  awayTeamGoals!: number;
+  inProgress!: boolean;
 }
 
 Matches.init({
@@ -17,11 +17,15 @@ Matches.init({
     autoIncrement: true,
     primaryKey: true,
   },
-  team_name: { type: DataTypes.STRING },
+  homeTeam: { type: DataTypes.INTEGER },
+  homeTeamGoals: { type: DataTypes.INTEGER },
+  awayTeam: { type: DataTypes.INTEGER },
+  awayTeamGoals: { type: DataTypes.INTEGER },
+  inProgress: { type: DataTypes.BOOLEAN },
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'teams',
+  modelName: 'matches',
   timestamps: false,
 });
 
@@ -30,10 +34,10 @@ Matches.init({
 // `Workaround` para aplicar as associations em TS:
 // Associations 1:N devem ficar em uma das instâncias de modelo
 
-Teams.belongsTo(Matches, { foreignKey: 'home_team', as: 'matchHome' });
-Teams.belongsTo(Matches, { foreignKey: 'away_team', as: 'matchAway' });
+Matches.belongsTo(Teams, { foreignKey: 'homeTeam', as: 'teamHome' });
+Matches.belongsTo(Teams, { foreignKey: 'awayTeam', as: 'teamAway' });
 
-Matches.hasMany(Teams, { foreignKey: 'id', as: 'team' });
+// Matches.hasMany(Teams, { foreignKey: 'id', as: 'team' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 
 export default Matches;
