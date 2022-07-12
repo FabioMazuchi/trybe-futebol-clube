@@ -25,9 +25,11 @@ export default class MatchesController {
   }
 
   async create(req: Request, res: Response, _next: NextFunction) {
-    const newMatch = await this.service.create(req.body);
+    const result = await this.service.create(req.body);
 
-    return res.status(201).json(newMatch);
+    if (result.status === 200) return res.status(201).json(result.match);
+
+    return res.status(result.status).json({ message: result.message });
   }
 
   async updateInProgress(req: Request, res: Response, _next: NextFunction) {

@@ -42,6 +42,7 @@ export type MyResult = {
   status: number,
   message?: string,
   token?: string,
+  match?: Match,
 };
 
 export type myDecoded = {
@@ -84,6 +85,6 @@ export interface IMatchesModel {
 export interface IMatchesService {
   list(): Promise<Match[]>;
   listInProgress(query: boolean | undefined): Promise<Match[]>;
-  create(data: Omit<Match, 'id' | 'inProgress'>): Promise<Match>;
+  create(data: Omit<Match, 'id' | 'inProgress'>): Promise<MyResult>;
   updateInProgress(id: number): Promise<boolean>;
 }

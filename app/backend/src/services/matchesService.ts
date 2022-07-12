@@ -1,4 +1,9 @@
-import { IMatchesModel, IMatchesService, Match } from '../protocols/index';
+import {
+  IMatchesModel,
+  IMatchesService,
+  Match,
+  MyResult,
+} from '../protocols/index';
 
 export default class TeamsService implements IMatchesService {
   constructor(private model: IMatchesModel) {
@@ -17,10 +22,18 @@ export default class TeamsService implements IMatchesService {
     return matches;
   }
 
-  async create(data: Omit<Match, 'id' | 'inProgress'>): Promise<Match> {
-    const newMatch = await this.model.create(data);
+  async create(data: Omit<Match, 'id' | 'inProgress'>): Promise<MyResult> {
+    const { awayTeam, homeTeam } = data;
+    const erro = {
+      status: 401,
+      message: 'It is not possible to create a match with two equal teams',
+    };
 
-    return newMatch;
+    if (awayTeam === homeTeam) return erro;
+
+    const match = await this.model.create(data);
+
+    return { status: 200, match };
   }
 
   async updateInProgress(id: number): Promise<boolean> {
