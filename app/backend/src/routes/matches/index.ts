@@ -7,6 +7,10 @@ router.patch('/:id/finish', (req, res, next) => {
   matchesFactory().updateInProgress(req, res, next);
 });
 
+router.patch('/:id', (req, res, next) => {
+  matchesFactory().updateGoals(req, res, next);
+});
+
 router.get('/', (req, res, next) => {
   matchesFactory().list(req, res, next);
 });

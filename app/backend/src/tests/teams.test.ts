@@ -16,7 +16,7 @@ describe('GET /teams SUCESSO', () => {
 
   before(() => {
     sinon.stub(Teams, 'findAll')
-      .resolves(fakeTeams as Teams[]) // para async
+      .resolves(fakeTeams as Teams[])
   });
 
   after(() => {

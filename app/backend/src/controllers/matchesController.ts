@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { IMatchesService } from '../protocols';
+import { IMatchesService, Match } from '../protocols';
 
 export default class MatchesController {
   constructor(private service: IMatchesService) {
@@ -37,5 +37,13 @@ export default class MatchesController {
     await this.service.updateInProgress(Number(id));
 
     return res.status(200).json({ message: 'Finished' });
+  }
+
+  async updateGoals(req: Request, res: Response, _next: NextFunction) {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body as Match;
+    await this.service.updateGoals(Number(id), Number(homeTeamGoals), Number(awayTeamGoals));
+
+    return res.status(200).json({ message: 'Goals updated' });
   }
 }

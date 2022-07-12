@@ -53,4 +53,13 @@ export default class MatchesRepository implements IMatchesModel {
 
     return true;
   }
+
+  async updateGoals(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<boolean> {
+    await this.model.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id } },
+    );
+
+    return true;
+  }
 }

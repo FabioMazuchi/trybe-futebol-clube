@@ -59,6 +59,7 @@ export interface Team {
 export interface ITeamsModel {
   list(): Promise<Team[]>;
   getById(id: number): Promise<Team>;
+  getByIds(idHome: number, idAway: number): Promise<Team[]>;
 }
 
 export interface ITeamsService {
@@ -80,6 +81,7 @@ export interface IMatchesModel {
   listInProgress(query: boolean | undefined): Promise<Match[]>;
   create(data: Omit<Match, 'id' | 'inProgress'>): Promise<Match>;
   updateInProgress(id: number): Promise<boolean>;
+  updateGoals(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<boolean>;
 }
 
 export interface IMatchesService {
@@ -87,4 +89,5 @@ export interface IMatchesService {
   listInProgress(query: boolean | undefined): Promise<Match[]>;
   create(data: Omit<Match, 'id' | 'inProgress'>): Promise<MyResult>;
   updateInProgress(id: number): Promise<boolean>;
+  updateGoals(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<boolean>;
 }
