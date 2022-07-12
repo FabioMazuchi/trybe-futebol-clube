@@ -3,6 +3,10 @@ import matchesFactory from '../../factory/matchesfactory';
 
 const router = express.Router();
 
+router.patch('/:id/finish', (req, res, next) => {
+  matchesFactory().updateInProgress(req, res, next);
+});
+
 router.get('/', (req, res, next) => {
   matchesFactory().list(req, res, next);
 });

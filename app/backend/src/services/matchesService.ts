@@ -22,4 +22,10 @@ export default class TeamsService implements IMatchesService {
 
     return newMatch;
   }
+
+  async updateInProgress(id: number): Promise<boolean> {
+    const result = await this.model.updateInProgress(id);
+
+    return result;
+  }
 }

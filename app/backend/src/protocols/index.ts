@@ -78,10 +78,12 @@ export interface IMatchesModel {
   list(): Promise<Match[]>;
   listInProgress(query: boolean | undefined): Promise<Match[]>;
   create(data: Omit<Match, 'id' | 'inProgress'>): Promise<Match>;
+  updateInProgress(id: number): Promise<boolean>;
 }
 
 export interface IMatchesService {
   list(): Promise<Match[]>;
   listInProgress(query: boolean | undefined): Promise<Match[]>;
   create(data: Omit<Match, 'id' | 'inProgress'>): Promise<Match>;
+  updateInProgress(id: number): Promise<boolean>;
 }

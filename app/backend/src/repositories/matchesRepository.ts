@@ -41,8 +41,16 @@ export default class MatchesRepository implements IMatchesModel {
       awayTeamGoals,
       inProgress: true,
     });
-    // const newMatch = { ...result, inProgress: true };
 
     return result;
+  }
+
+  async updateInProgress(id: number): Promise<boolean> {
+    await this.model.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+
+    return true;
   }
 }

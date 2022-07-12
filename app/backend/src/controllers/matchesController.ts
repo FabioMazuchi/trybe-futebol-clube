@@ -29,4 +29,11 @@ export default class MatchesController {
 
     return res.status(201).json(newMatch);
   }
+
+  async updateInProgress(req: Request, res: Response, _next: NextFunction) {
+    const { id } = req.params;
+    await this.service.updateInProgress(Number(id));
+
+    return res.status(200).json({ message: 'Finished' });
+  }
 }
