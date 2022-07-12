@@ -10,4 +10,10 @@ export default class TeamsService implements IMatchesService {
 
     return matches;
   }
+
+  async listInProgress(query: boolean | undefined): Promise<Match[]> {
+    const matches = await this.model.listInProgress(query);
+
+    return matches;
+  }
 }

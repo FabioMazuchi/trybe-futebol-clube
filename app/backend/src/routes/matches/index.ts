@@ -7,4 +7,8 @@ router.get('/', (req, res, next) => {
   matchesFactory().list(req, res, next);
 });
 
+// router.get('/', (req, res, next) => {
+//   matchesFactory().listInProgress(req, res, next);
+// });
+
 export default router;
