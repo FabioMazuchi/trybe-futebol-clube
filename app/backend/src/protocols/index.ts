@@ -77,9 +77,11 @@ export interface Match {
 export interface IMatchesModel {
   list(): Promise<Match[]>;
   listInProgress(query: boolean | undefined): Promise<Match[]>;
+  create(data: Omit<Match, 'id' | 'inProgress'>): Promise<Match>;
 }
 
 export interface IMatchesService {
   list(): Promise<Match[]>;
   listInProgress(query: boolean | undefined): Promise<Match[]>;
+  create(data: Omit<Match, 'id' | 'inProgress'>): Promise<Match>;
 }

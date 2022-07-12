@@ -16,4 +16,10 @@ export default class TeamsService implements IMatchesService {
 
     return matches;
   }
+
+  async create(data: Omit<Match, 'id' | 'inProgress'>): Promise<Match> {
+    const newMatch = await this.model.create(data);
+
+    return newMatch;
+  }
 }

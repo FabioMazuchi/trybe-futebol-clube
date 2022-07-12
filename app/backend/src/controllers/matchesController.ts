@@ -23,4 +23,10 @@ export default class MatchesController {
 
     return res.status(200).json(matches);
   }
+
+  async create(req: Request, res: Response, _next: NextFunction) {
+    const newMatch = await this.service.create(req.body);
+
+    return res.status(201).json(newMatch);
+  }
 }
