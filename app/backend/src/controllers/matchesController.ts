@@ -1,8 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
-import { IMatchesService, Match } from '../protocols';
+import { IMatchesService, IUsersService, Match, myDecoded } from '../protocols';
+import jwtGenerate from '../helper/jwtGenerate';
 
 export default class MatchesController {
-  constructor(private service: IMatchesService) {
+  constructor(
+    private service: IMatchesService,
+    private userService: IUsersService,
+  ) {
     this.service = service;
   }
 
@@ -25,11 +29,21 @@ export default class MatchesController {
   }
 
   async create(req: Request, res: Response, _next: NextFunction) {
-    const result = await this.service.create(req.body);
+    try {
+      const token = req.headers.authorization;
+      const jwtDecode = jwtGenerate(token);
+      const { email } = jwtDecode as myDecoded;
+      const userExists = await this.userService.getByEmail(email);
+      console.log(userExists);
 
-    if (result.status === 200) return res.status(201).json(result.match);
+      const result = await this.service.create(req.body);
 
-    return res.status(result.status).json({ message: result.message });
+      if (result.status === 200) return res.status(201).json(result.match);
+
+      return res.status(result.status).json({ message: result.message });
+    } catch (error) {
+      return res.status(401).json({ message: 'Token must be a valid token' });
+    }
   }
 
   async updateInProgress(req: Request, res: Response, _next: NextFunction) {
@@ -42,7 +56,11 @@ export default class MatchesController {
   async updateGoals(req: Request, res: Response, _next: NextFunction) {
     const { id } = req.params;
     const { homeTeamGoals, awayTeamGoals } = req.body as Match;
-    await this.service.updateGoals(Number(id), Number(homeTeamGoals), Number(awayTeamGoals));
+    await this.service.updateGoals(
+      Number(id),
+      Number(homeTeamGoals),
+      Number(awayTeamGoals),
+    );
 
     return res.status(200).json({ message: 'Goals updated' });
   }

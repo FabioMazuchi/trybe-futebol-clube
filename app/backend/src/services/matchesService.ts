@@ -31,13 +31,12 @@ export default class TeamsService implements IMatchesService {
       message: 'It is not possible to create a match with two equal teams',
     };
     const erro1 = { status: 404, message: 'There is no team with such id!' };
-
     if (awayTeam === homeTeam) return erro;
-    const teams = await this.teamModel.getByIds(awayTeam, homeTeam);
-    console.log(teams.length);
-    if (teams.length !== 2) return erro1;
-    const match = await this.model.create(data);
 
+    const teams = await this.teamModel.getByIds(awayTeam, homeTeam);
+    if (teams.length !== 2) return erro1;
+
+    const match = await this.model.create(data);
     return { status: 200, match };
   }
 

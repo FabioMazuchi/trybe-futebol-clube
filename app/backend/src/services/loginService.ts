@@ -1,9 +1,9 @@
-import { ILoginService, IUserModel, MyResult, User } from '../protocols/index';
+import { ILoginService, IUsersModel, MyResult, User } from '../protocols/index';
 import generateToken from '../helper/TokenGenerator';
 import ValidLoginBody from '../helper/validLoginBody';
 
 export default class LoginService implements ILoginService {
-  constructor(private model: IUserModel) {
+  constructor(private model: IUsersModel) {
     this.model = model;
   }
 

@@ -1,7 +1,7 @@
-import { IUserModel, User } from '../protocols';
+import { IUsersModel, User } from '../protocols';
 import userModel from '../database/models/usersModel';
 
-export default class UserRepository implements IUserModel {
+export default class UserRepository implements IUsersModel {
   constructor(private model = userModel) {
     this.model = model;
   }

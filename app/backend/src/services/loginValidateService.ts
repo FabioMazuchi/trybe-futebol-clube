@@ -1,8 +1,8 @@
 import * as Jwt from 'jsonwebtoken';
-import { ILoginValidateService, IUserModel, myDecoded } from '../protocols/index';
+import { ILoginValidateService, IUsersModel, myDecoded } from '../protocols/index';
 
 export default class LoginValidateService implements ILoginValidateService {
-  constructor(private model: IUserModel) {
+  constructor(private model: IUsersModel) {
     this.model = model;
   }
 

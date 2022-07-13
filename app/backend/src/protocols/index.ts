@@ -6,14 +6,15 @@ export interface User {
   password: string;
 }
 
-export interface IUserModel {
+export interface IUsersModel {
   getById(id: number): Promise<Omit<User, 'id' | 'username' | 'role'>>;
   getByEmail(email: string): Promise<User>
   getByPassword(password: string): Promise<User>;
 }
 
-export interface IUserService {
-  getById(id: number): Omit<User, 'id' | 'username' | 'role'>;
+export interface IUsersService {
+  getById(id: number): Promise<Omit<User, 'id' | 'username' | 'role'>>;
+  getByEmail(email: string): Promise<User>;
 }
 
 export interface ILoginModel {
