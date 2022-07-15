@@ -7,6 +7,20 @@ export default class MatchesRepository implements IMatchesModel {
     this.model = model;
   }
 
+  async listFinished(): Promise<Match[]> {
+    const matches = await this.model.findAll({
+      include: [
+        { model: Teams, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: Teams, as: 'teamAway', attributes: { exclude: ['id'] } },
+      ],
+      where: {
+        inProgress: false,
+      },
+    });
+
+    return matches as Match[];
+  }
+
   async list(): Promise<Match[]> {
     const matches = await this.model.findAll({
       include: [
