@@ -19,8 +19,4 @@ router.post('/', (req, res, next) => {
   matchesFactory().create(req, res, next);
 });
 
-// router.get('/', (req, res, next) => {
-//   matchesFactory().listInProgress(req, res, next);
-// });
-
 export default router;

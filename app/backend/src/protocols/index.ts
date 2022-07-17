@@ -5,6 +5,10 @@ export interface User {
   email: string;
   password: string;
 }
+export type UserTest = {
+  email: string;
+  password: string;
+};
 
 export interface IUsersModel {
   getById(id: number): Promise<Omit<User, 'id' | 'username' | 'role'>>;
@@ -59,7 +63,7 @@ export interface Team {
 
 export interface ITeamsModel {
   list(): Promise<Team[]>;
-  getById(id: number): Promise<Team>;
+  getById(id: number): Promise<Team> ;
   getByIds(idHome: number, idAway: number): Promise<Team[]>;
 }
 
