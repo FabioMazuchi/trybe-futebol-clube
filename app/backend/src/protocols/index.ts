@@ -76,7 +76,7 @@ export interface MatchOficial {
   awayTeamGoals: number;
   inProgress: boolean;
   teamHome: { teamName: string };
-  teamAway: { teamname: string };
+  teamAway: { teamName: string };
 }
 
 export type Match = Omit<MatchOficial, 'teamHome' | 'teamAway'>;
@@ -99,7 +99,8 @@ export interface IMatchesService {
 }
 
 export interface ILeaderboardsService {
-  getHomeTeams(): Promise<NameGoals[]>;
+  listHomeTeams(): Promise<NameGoals[]>;
+  listAwayTeams(): Promise<NameGoals[]>;
 }
 
 export interface NameGoals {
@@ -114,3 +115,7 @@ export interface NameGoals {
   totalLosses: number;
   efficiency: number;
 }
+
+export type TeamAway = 'teamAway';
+export type TeamHome = 'teamHome';
+export type TTeam = TeamAway | TeamHome;

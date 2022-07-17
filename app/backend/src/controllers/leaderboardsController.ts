@@ -6,8 +6,14 @@ export default class LeaderboardsController {
     this.service = service;
   }
 
-  async listFinished(req: Request, res: Response, _next: NextFunction) {
-    const result = await this.service.getHomeTeams();
+  async listHomeTeam(req: Request, res: Response, _next: NextFunction) {
+    const result = await this.service.listHomeTeams();
+
+    return res.status(200).json(result);
+  }
+
+  async listAwayTeam(req: Request, res: Response, _next: NextFunction) {
+    const result = await this.service.listAwayTeams();
 
     return res.status(200).json(result);
   }

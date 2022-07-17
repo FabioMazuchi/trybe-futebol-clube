@@ -1,7 +1,7 @@
-import { MatchOficial } from '../protocols';
+import { MatchOficial, TTeam } from '../protocols';
 
-const arrayTotalGames = (data: MatchOficial[]) => {
-  const array = data.map((d) => d.teamHome.teamName);
+const arrayTotalGames = (data: MatchOficial[], team: TTeam) => {
+  const array = data.map((d) => `${d[team].teamName}`);
   const obj: any = {};
   array.forEach((res: string) => {
     obj[res] = (obj[res] || 0) + 1;

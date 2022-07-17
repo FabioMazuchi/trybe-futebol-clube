@@ -1,30 +1,24 @@
 import { ILeaderboardsService, IMatchesModel, MatchOficial, NameGoals } from '../protocols/index';
-import arrayTotalGames from '../helper/arrayTotalGames';
-import addNameGoals from '../helper/addNameGoals';
-import addTotalGames from '../helper/addTotalGames';
-import addKeys from '../helper/addKeys';
-import addVDLTotalPoints from '../helper/addVDLTotalPoints';
-import addEficiency from '../helper/addEficiency';
-import compare from '../helper/compare';
+import main from '../helper/main';
 
 export default class LeaderBboardsService implements ILeaderboardsService {
   constructor(private matchModel: IMatchesModel) {
     this.matchModel = matchModel;
   }
 
-  async getHomeTeams(): Promise<NameGoals[]> {
+  async listHomeTeams(): Promise<NameGoals[]> {
     const resulModel = await this.matchModel.listFinished();
     const data = resulModel as MatchOficial[];
-    const resultTotal = arrayTotalGames(data);
-    const repeatKeysValues = Object.entries(resultTotal);
-    const resultNameGoals = addNameGoals(repeatKeysValues, data);
-    const resultsTotalGame = addTotalGames(resultNameGoals, repeatKeysValues);
-    const resultAddKeys = addKeys(resultsTotalGame);
-    const resultVDL = addVDLTotalPoints(resultAddKeys, data);
-    const resultEfic = addEficiency(resultVDL);
-    const resultFinal = compare(resultEfic);
-    console.log(resultEfic);
+    const results = main(data, 'teamHome');
 
-    return resultFinal as NameGoals[];
+    return results;
+  }
+
+  async listAwayTeams(): Promise<NameGoals[]> {
+    const resulModel = await this.matchModel.listFinished();
+    const data = resulModel as MatchOficial[];
+    const results = main(data, 'teamAway');
+
+    return results;
   }
 }
